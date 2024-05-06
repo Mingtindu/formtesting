@@ -68,6 +68,28 @@ const EnrollmentForm = () => {
     });
   };
 
+  const addCourse =async ()=>{
+    try{
+      const response = await fetch('http://localhost:8000/api/v1/enroll/register',{
+        method:"POST",
+        headers:{
+          Accept:'application/json',
+          'Content-Type':'application/json',
+        },
+        body:JSON.stringify(formData)
+      })
+      console.log(response);
+      if(!response.ok){
+        alert(`Something went wrong while registering course`)
+      }
+
+
+    }catch(err){
+      console.log(err);
+    }
+
+  }
+
   const handleLevelChange = (levelId) => {
     setFormData({
       ...formData,
@@ -272,9 +294,7 @@ const EnrollmentForm = () => {
           </div>
           {/* Submit button */}
           <button
-            onClick={() => {
-              console.log("button clicked");
-            }}
+            onClick={handleSubmit}
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
           >
