@@ -223,7 +223,7 @@ const EnrollmentForm = () => {
                   name="levelOfEducation"
                   value={levelItem.id}
                   checked={formData.levelOfEducation === levelItem.id}
-                  onChange={() => handleLevelChange(levelItem.name)}
+                  onChange={() => handleLevelChange(levelItem.id)}
                   className="mr-2"
                 />
                 <label htmlFor={`level-${levelItem.id}`}>
