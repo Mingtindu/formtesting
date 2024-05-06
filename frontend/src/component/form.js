@@ -100,6 +100,7 @@ const EnrollmentForm = () => {
     e.preventDefault();
     setFormSubmitted(true);
     console.log(formData);
+    addCourse()
     // You can add your form submission logic here
   };
 
