@@ -216,17 +216,17 @@ const EnrollmentForm = () => {
               </span>
             )}
             {levelOptions.map((levelItem) => (
-              <div key={levelItem.id} className="flex items-center mb-2">
+              <div key={levelItem.name} className="flex items-center mb-2">
                 <input
                   type="radio"
-                  id={`level-${levelItem.id}`}
+                  id={`level-${levelItem.name}`}
                   name="levelOfEducation"
-                  value={levelItem.id}
-                  checked={formData.levelOfEducation === levelItem.id}
-                  onChange={() => handleLevelChange(levelItem.id)}
+                  value={levelItem.name}
+                  checked={formData.levelOfEducation === levelItem.name}
+                  onChange={() => handleLevelChange(levelItem.name)}
                   className="mr-2"
                 />
-                <label htmlFor={`level-${levelItem.id}`}>
+                <label htmlFor={`level-${levelItem.name}`}>
                   {levelItem.name}
                 </label>
               </div>
