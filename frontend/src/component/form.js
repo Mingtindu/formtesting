@@ -67,10 +67,9 @@ const EnrollmentForm = () => {
       courses: selectedCourses,
     });
   };
-
   const addCourse =async ()=>{
     try{
-      const response = await fetch('http://localhost:8000/api/v1/enroll/register',{
+      const response = await fetch('https://nninebackend.onrender.com/api/v1/courses/register',{
         method:"POST",
         headers:{
           Accept:'application/json',
