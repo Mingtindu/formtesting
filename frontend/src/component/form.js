@@ -45,7 +45,6 @@ const EnrollmentForm = () => {
     name: "",
     email: "",
     phone: "",
-    alternativeNumber: "",
     schoolCollegeName: "",
     levelOfEducation: null,
     message: "",
@@ -98,9 +97,9 @@ const EnrollmentForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    addCourse()
     setFormSubmitted(true);
     console.log(formData);
-    addCourse()
     // You can add your form submission logic here
   };
 
@@ -224,7 +223,7 @@ const EnrollmentForm = () => {
                   name="levelOfEducation"
                   value={levelItem.id}
                   checked={formData.levelOfEducation === levelItem.id}
-                  onChange={() => handleLevelChange(levelItem.id)}
+                  onChange={() => handleLevelChange(levelItem.name)}
                   className="mr-2"
                 />
                 <label htmlFor={`level-${levelItem.id}`}>
