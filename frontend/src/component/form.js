@@ -82,6 +82,9 @@ const EnrollmentForm = () => {
       if(response.status===201){
         alert(`Course registration Successful, We'll reach you soon`)
         window.location.reload()
+      }else if(response.status===400){
+        alert(`All fields are required`)
+        window.location.reload()
       }
 
 
