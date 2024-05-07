@@ -75,7 +75,7 @@ const EnrollmentForm = () => {
         },
         body:JSON.stringify(formData)
       })
-      console.log(response);
+      // console.log(response);
       if(response.status===201){
         alert(`Course registration Successful, We'll reach you soon`)
         window.location.reload()
