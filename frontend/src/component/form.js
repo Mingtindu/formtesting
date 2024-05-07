@@ -34,7 +34,7 @@ const Courses = [
 
 const levelOptions = [
   { id: 1, name: "School" },
-  { id: 2, name: "+2/Intermidate" },
+  { id: 2, name: "+2/Intermediate" },
   { id: 3, name: "Bachelor" },
   { id: 4, name: "Master" },
   { id: 5, name: "Others" },
@@ -52,7 +52,6 @@ const EnrollmentForm = () => {
   });
 
   const [formSubmitted, setFormSubmitted] = useState(false);
-
   const handleChange = (value) => {
     setFormData({
       ...formData,
@@ -79,6 +78,10 @@ const EnrollmentForm = () => {
       console.log(response);
       if(!response.ok){
         alert(`Something went wrong while registering course`)
+      }
+      if(response.status===201){
+        alert(`Course registration Successful, We'll reach you soon`)
+        window.location.reload()
       }
 
 
