@@ -76,15 +76,11 @@ const EnrollmentForm = () => {
         body:JSON.stringify(formData)
       })
       console.log(response);
-      if(!response.ok){
-        alert(`Something went wrong while registering course`)
-      }
       if(response.status===201){
         alert(`Course registration Successful, We'll reach you soon`)
         window.location.reload()
       }else if(response.status===400){
         alert(`All fields are required`)
-        window.location.reload()
       }
 
 
