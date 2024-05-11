@@ -50,7 +50,7 @@ const EnrollmentForm = () => {
     message: "",
     courses: [],
   });
-   const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [formSubmitted, setFormSubmitted] = useState(false);
   const handleChange = (value) => {
@@ -66,29 +66,30 @@ const EnrollmentForm = () => {
       courses: selectedCourses,
     });
   };
-  const addCourse =async ()=>{
-    try{
+  const addCourse = async () => {
+    try {
       setLoading(true);
-      const response = await fetch('https://nninebackend.onrender.com/api/v1/courses/register',{
-        method:"POST",
-        headers:{
-          Accept:'application/json',
-          'Content-Type':'application/json',
+      const response = await fetch('https://nninebackend.onrender.com/api/v1/courses/register', {
+        method: "POST",
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-        body:JSON.stringify(formData)
+        body: JSON.stringify(formData)
       })
       // console.log(response);
-      if(response.status===201){
+      if (response.status === 201) {
         alert(`Course registration Successful, We'll reach you soon`)
-        
-      }else if(response.status===400){
+
+      } else if (response.status === 400) {
         alert(`All fields are required`)
       }
 
 
-    }catch(err){
-      
-    }finally {
+    } catch (err) {
+      alert("An error occurred. Please try again later.");
+
+    } finally {
       setLoading(false); // Set loading back to false after the request completes
     }
 
@@ -105,219 +106,217 @@ const EnrollmentForm = () => {
     e.preventDefault();
     addCourse()
     setFormSubmitted(true);
-    console.log(formData);
-    // You can add your form submission logic here
   };
 
   return (
     <>
-      {loading && (//this loading is displayed if the loading state is true
+      {loading && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-          <div className="spinner-border text-primary" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
+          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-primary"></div>
+          <span className="sr-only">Loading...</span>
         </div>
       )}
-    
-    <div className="bg-blue-300 py-8">
-    
-      <div className="max-w-xl mx-auto p-6 bg-white rounded-md shadow-md">
-        <h2 className="text-2xl font-semibold mb-4">Enrollment Form</h2>
-        <form onSubmit={handleSubmit}>
-          {/* Name field */}
-          <div className="mb-4">
-            <label
-              htmlFor="name"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Name <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Your Name"
-              value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-              required
-            />
-            {formSubmitted && formData.name === "" && (
-              <span className="text-red-500 text-sm">
-                This is a required field.
-              </span>
-            )}
-          </div>
-          {/* Email field */}
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Email <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Your Email"
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-              required
-            />
-            {formSubmitted && formData.email === "" && (
-              <span className="text-red-500 text-sm">
-                This is a required field.
-              </span>
-            )}
-          </div>
-          {/* Mobile Number field */}
-          <div className="mb-4">
-            <label
-              htmlFor="phone"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Mobile Number <span className="text-red-500">*</span>
-            </label>
-            <FormInput
-              country={"np"}
-              value={formData.phone}
-              onChange={handleChange}
-              inputProps={{ required: true }}
-              containerClass="w-full focus:outline-none focus:border-blue-500"
-              inputClass="w-full px-3 py-2"
-            />
-            {formSubmitted && formData.phone === "" && (
-              <span className="text-red-500 text-sm">
-                Please enter a valid Phone Number!
-              </span>
-            )}
-          </div>
-          {/* School/College Name field */}
-          <div className="mb-4">
-            <label
-              htmlFor="schoolCollegeName"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              School/College Name
-            </label>
-            <input
-              type="text"
-              id="schoolCollegeName"
-              name="schoolCollegeName"
-              placeholder="Your School/College Name"
-              value={formData.schoolCollegeName}
-              onChange={(e) =>
-                setFormData({ ...formData, schoolCollegeName: e.target.value })
-              }
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            />
-          </div>
-          {/* Level of Education field */}
-          <div className="mb-4">
-            <label
-              htmlFor="levelOfEducation"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Level of Education <span className="text-red-500">*</span>
-            </label>
-            {formSubmitted && formData.levelOfEducation === null && (
-              <span className="text-red-500 text-sm">
-                Please select one level of education.
-              </span>
-            )}
-            {levelOptions.map((levelItem) => (
-              <div key={levelItem.name} className="flex items-center mb-2">
-                <input
-                  type="radio"
-                  id={`level-${levelItem.name}`}
-                  name="levelOfEducation"
-                  value={levelItem.name}
-                  checked={formData.levelOfEducation === levelItem.name}
-                  onChange={() => handleLevelChange(levelItem.name)}
-                  className="mr-2"
-                />
-                <label htmlFor={`level-${levelItem.name}`}>
-                  {levelItem.name}
-                </label>
-              </div>
-            ))}
-          </div>
-          {/* Choose Courses field */}
-          <div className="mb-4">
-            <label
-              htmlFor="courses"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Choose Courses <span className="text-red-500">*</span>
-            </label>
-            {formSubmitted && formData.courses.length === 0 && (
-              <span className="text-red-500 text-sm">
-                This is a required field.
-              </span>
-            )}
-            <FormControl sx={{ width: "100%" }}>
-              <Select
-                className="h-10"
-                labelId="multi-select-label"
-                id="multi-select"
-                multiple
-                value={formData.courses}
-                onChange={(e) => handleCourseChange(e.target.value)}
-                renderValue={(selected) => selected.join(", ")}
-                displayEmpty
+
+
+      <div className="bg-blue-300 py-8">
+
+        <div className="max-w-xl mx-auto p-6 bg-white rounded-md shadow-md">
+          <h2 className="text-2xl font-semibold mb-4">Enrollment Form</h2>
+          <form onSubmit={handleSubmit}>
+            {/* Name field */}
+            <div className="mb-4">
+              <label
+                htmlFor="name"
+                className="block text-gray-700 font-semibold mb-2"
               >
-                {/* Placeholder */}
-                <MenuItem disabled value="Choose courses">
-                  <em>Choose Courses</em>
-                </MenuItem>
-                {/* Actual options */}
-                {Courses.map((course) => (
-                  <MenuItem key={course.id} value={course.name}>
-                    <Checkbox
-                      checked={formData.courses.includes(course.name)}
-                    />
-                    <ListItemText primary={course.name} />
+                Name <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Your Name"
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                required
+              />
+              {formSubmitted && formData.name === "" && (
+                <span className="text-red-500 text-sm">
+                  This is a required field.
+                </span>
+              )}
+            </div>
+            {/* Email field */}
+            <div className="mb-4">
+              <label
+                htmlFor="email"
+                className="block text-gray-700 font-semibold mb-2"
+              >
+                Email <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Your Email"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                required
+              />
+              {formSubmitted && formData.email === "" && (
+                <span className="text-red-500 text-sm">
+                  This is a required field.
+                </span>
+              )}
+            </div>
+            {/* Mobile Number field */}
+            <div className="mb-4">
+              <label
+                htmlFor="phone"
+                className="block text-gray-700 font-semibold mb-2"
+              >
+                Mobile Number <span className="text-red-500">*</span>
+              </label>
+              <FormInput
+                country={"np"}
+                value={formData.phone}
+                onChange={handleChange}
+                inputProps={{ required: true }}
+                containerClass="w-full focus:outline-none focus:border-blue-500"
+                inputClass="w-full px-3 py-2"
+              />
+              {formSubmitted && formData.phone === "" && (
+                <span className="text-red-500 text-sm">
+                  Please enter a valid Phone Number!
+                </span>
+              )}
+            </div>
+            {/* School/College Name field */}
+            <div className="mb-4">
+              <label
+                htmlFor="schoolCollegeName"
+                className="block text-gray-700 font-semibold mb-2"
+              >
+                School/College Name
+              </label>
+              <input
+                type="text"
+                id="schoolCollegeName"
+                name="schoolCollegeName"
+                placeholder="Your School/College Name"
+                value={formData.schoolCollegeName}
+                onChange={(e) =>
+                  setFormData({ ...formData, schoolCollegeName: e.target.value })
+                }
+                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+              />
+            </div>
+            {/* Level of Education field */}
+            <div className="mb-4">
+              <label
+                htmlFor="levelOfEducation"
+                className="block text-gray-700 font-semibold mb-2"
+              >
+                Level of Education <span className="text-red-500">*</span>
+              </label>
+              {formSubmitted && formData.levelOfEducation === null && (
+                <span className="text-red-500 text-sm">
+                  Please select one level of education.
+                </span>
+              )}
+              {levelOptions.map((levelItem) => (
+                <div key={levelItem.name} className="flex items-center mb-2">
+                  <input
+                    type="radio"
+                    id={`level-${levelItem.name}`}
+                    name="levelOfEducation"
+                    value={levelItem.name}
+                    checked={formData.levelOfEducation === levelItem.name}
+                    onChange={() => handleLevelChange(levelItem.name)}
+                    className="mr-2"
+                  />
+                  <label htmlFor={`level-${levelItem.name}`}>
+                    {levelItem.name}
+                  </label>
+                </div>
+              ))}
+            </div>
+            {/* Choose Courses field */}
+            <div className="mb-4">
+              <label
+                htmlFor="courses"
+                className="block text-gray-700 font-semibold mb-2"
+              >
+                Choose Courses <span className="text-red-500">*</span>
+              </label>
+              {formSubmitted && formData.courses.length === 0 && (
+                <span className="text-red-500 text-sm">
+                  This is a required field.
+                </span>
+              )}
+              <FormControl sx={{ width: "100%" }}>
+                <Select
+                  className="h-10"
+                  labelId="multi-select-label"
+                  id="multi-select"
+                  multiple
+                  value={formData.courses}
+                  onChange={(e) => handleCourseChange(e.target.value)}
+                  renderValue={(selected) => selected.join(", ")}
+                  displayEmpty
+                >
+                  {/* Placeholder */}
+                  <MenuItem disabled value="Choose courses">
+                    <em>Choose Courses</em>
                   </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
-          {/* Message field */}
-          <div className="mb-4">
-            <label
-              htmlFor="message"
-              className="block text-gray-700 font-semibold mb-2"
+                  {/* Actual options */}
+                  {Courses.map((course) => (
+                    <MenuItem key={course.id} value={course.name}>
+                      <Checkbox
+                        checked={formData.courses.includes(course.name)}
+                      />
+                      <ListItemText primary={course.name} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+            {/* Message field */}
+            <div className="mb-4">
+              <label
+                htmlFor="message"
+                className="block text-gray-700 font-semibold mb-2"
+              >
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Share a bit about yourself with us"
+                value={formData.message}
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
+                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+              ></textarea>
+            </div>
+            {/* Submit button */}
+            <button
+              onClick={handleSubmit}
+              type="submit"
+              className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
             >
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              placeholder="Share a bit about yourself with us"
-              value={formData.message}
-              onChange={(e) =>
-                setFormData({ ...formData, message: e.target.value })
-              }
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            ></textarea>
-          </div>
-          {/* Submit button */}
-          <button
-            onClick={handleSubmit}
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-          >
-            Submit
-          </button>
-        </form>
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
     </>
   );
 };
