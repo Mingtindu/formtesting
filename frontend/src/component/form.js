@@ -50,6 +50,7 @@ const EnrollmentForm = () => {
     message: "",
     courses: [],
   });
+   const [loading, setLoading] = useState(false);
 
   const [formSubmitted, setFormSubmitted] = useState(false);
   const handleChange = (value) => {
@@ -67,6 +68,7 @@ const EnrollmentForm = () => {
   };
   const addCourse =async ()=>{
     try{
+      setLoading(true);
       const response = await fetch('https://nninebackend.onrender.com/api/v1/courses/register',{
         method:"POST",
         headers:{
@@ -78,14 +80,16 @@ const EnrollmentForm = () => {
       // console.log(response);
       if(response.status===201){
         alert(`Course registration Successful, We'll reach you soon`)
-        window.location.reload()
+        
       }else if(response.status===400){
         alert(`All fields are required`)
       }
 
 
     }catch(err){
-      console.log(err);
+      
+    }finally {
+      setLoading(false); // Set loading back to false after the request completes
     }
 
   }
@@ -107,6 +111,13 @@ const EnrollmentForm = () => {
 
   return (
     <div className="bg-blue-300 py-8">
+      {loading && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+          <div className="spinner-border text-primary" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      )}
       <div className="max-w-xl mx-auto p-6 bg-white rounded-md shadow-md">
         <h2 className="text-2xl font-semibold mb-4">Enrollment Form</h2>
         <form onSubmit={handleSubmit}>
