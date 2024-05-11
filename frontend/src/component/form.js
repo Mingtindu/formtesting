@@ -110,14 +110,17 @@ const EnrollmentForm = () => {
   };
 
   return (
-    <div className="bg-blue-300 py-8">
-      {loading && (
+    <>
+      {loading && (//this loading is displayed if the loading state is true
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
           <div className="spinner-border text-primary" role="status">
             <span className="sr-only">Loading...</span>
           </div>
         </div>
       )}
+    
+    <div className="bg-blue-300 py-8">
+    
       <div className="max-w-xl mx-auto p-6 bg-white rounded-md shadow-md">
         <h2 className="text-2xl font-semibold mb-4">Enrollment Form</h2>
         <form onSubmit={handleSubmit}>
@@ -315,6 +318,7 @@ const EnrollmentForm = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 
