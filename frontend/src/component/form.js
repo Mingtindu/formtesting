@@ -90,7 +90,8 @@ const EnrollmentForm = () => {
       alert("An error occurred. Please try again later.");
 
     } finally {
-      setLoading(false); // Set loading back to false after the request completes
+      setLoading(false)
+      window.location.reload()
     }
 
   }
