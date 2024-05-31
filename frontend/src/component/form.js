@@ -8,7 +8,8 @@ import {
 } from "@mui/material";
 import FormInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-
+import { helix } from 'ldrs'
+helix.register()
 const Courses = [
   { id: 1, value: "UI/UX", name: "UI/UX" },
   { id: 2, value: "AWS Cloud Practitioner", name: "AWS Cloud Practitioner" },
@@ -51,7 +52,6 @@ const EnrollmentForm = () => {
     courses: [],
   });
   const [loading, setLoading] = useState(false);
-
   const [formSubmitted, setFormSubmitted] = useState(false);
   const handleChange = (value) => {
     setFormData({
@@ -69,7 +69,7 @@ const EnrollmentForm = () => {
   const addCourse = async () => {
     try {
       setLoading(true);
-      const response = await fetch('https://nninebackend.onrender.com/api/v1/courses/register', {
+      const response = await fetch('https://nninebackend.onrender.com/api/v1/enrollment/register', {
         method: "POST",
         headers: {
           Accept: 'application/json',
@@ -85,7 +85,6 @@ const EnrollmentForm = () => {
       } else if (response.status === 400) {
         alert(`All fields are required`)
       }
-
 
     } catch (err) {
       alert("An error occurred. Please try again later.");
@@ -112,15 +111,13 @@ const EnrollmentForm = () => {
   return (
     <>
       {loading && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-primary"></div>
-          <span className="sr-only">Loading...</span>
-        </div>
+        <l-helix
+          size="45"
+          speed="2.5"
+          color="black"
+        ></l-helix>
       )}
-
-
       <div className="bg-blue-300 py-8">
-
         <div className="max-w-xl mx-auto p-6 bg-white rounded-md shadow-md">
           <h2 className="text-2xl font-semibold mb-4">Enrollment Form</h2>
           <form onSubmit={handleSubmit}>
