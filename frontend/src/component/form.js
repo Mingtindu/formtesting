@@ -33,7 +33,6 @@ const Courses = [
   { id: 16, value: "Ethical Hacking", name: "Ethical Hacking" },
   { id: 16, value: "Cyber Security", name: "Cyber Security" },
 ];
-const navigate = useNavigate();
 const levelOptions = [
   { id: 1, name: "School" },
   { id: 2, name: "+2/Intermediate" },
@@ -43,6 +42,7 @@ const levelOptions = [
 ];
 
 const EnrollmentForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -80,8 +80,8 @@ const EnrollmentForm = () => {
       })
       // console.log(response);
       if (response.status === 201) {
-        alert(`Course registration Successful, We'll reach you soon`)
         navigate('/dashboard')
+        alert(`Course registration Successful, We'll reach you soon`)
         
       } else if (response.status === 400) {
         alert(`All fields are required`)
