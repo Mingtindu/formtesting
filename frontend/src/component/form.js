@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import {
   Checkbox,
   FormControl,
@@ -32,7 +33,7 @@ const Courses = [
   { id: 16, value: "Ethical Hacking", name: "Ethical Hacking" },
   { id: 16, value: "Cyber Security", name: "Cyber Security" },
 ];
-
+const navigate = useNavigate();
 const levelOptions = [
   { id: 1, name: "School" },
   { id: 2, name: "+2/Intermediate" },
@@ -80,8 +81,8 @@ const EnrollmentForm = () => {
       // console.log(response);
       if (response.status === 201) {
         alert(`Course registration Successful, We'll reach you soon`)
-        window.location.reload('/dashboard')
-
+        navigate('/dashboard')
+        
       } else if (response.status === 400) {
         alert(`All fields are required`)
       }
